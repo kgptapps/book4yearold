@@ -1,0 +1,3 @@
+write a book for my 4 year old to include math, literacy, puzzle and critical thinking while reading the book.
+
+Make this as react app. No typescript.
