@@ -1,0 +1,21 @@
+{
+  "name": "Milo the Math Mouse",
+  "short_name": "Milo's Book",
+  "description": "An interactive children's book for 4-year-olds",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f9ff",
+  "theme_color": "#e63946",
+  "icons": [
+    {
+      "src": "/book-favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/book-icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
