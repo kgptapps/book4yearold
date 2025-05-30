@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import {
+  trackActivityCompletion,
+  trackPageInteraction,
+} from "../data/analytics";
 
 const PageContainer = styled.div`
   background-color: #f8f4e3;
@@ -120,7 +124,13 @@ const FeedbackMessage = styled.div`
 function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious }) {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
+  const [attempts, setAttempts] = useState(0);
   const navigate = useNavigate();
+
+  // Track page interactions when component mounts
+  useEffect(() => {
+    trackPageInteraction(pageNumber, "view");
+  }, [pageNumber]);
 
   console.log("BookPage rendered with:", {
     pageContent,
@@ -135,6 +145,15 @@ function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious }) {
 
   const checkAnswer = () => {
     setShowAnswer(true);
+
+    // Track the activity completion for analytics
+    if (pageContent.question && pageContent.correctAnswer) {
+      const isCorrect = selectedAnswer === pageContent.correctAnswer;
+      trackActivityCompletion(
+        `Page ${pageNumber}: ${pageContent.question}`,
+        isCorrect
+      );
+    }
   };
 
   const handlePrevious = () => {

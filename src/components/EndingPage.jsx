@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { trackPageView, trackEvent } from "../data/analytics";
 
 const EndingContainer = styled.div`
   text-align: center;
@@ -53,7 +54,14 @@ const Button = styled.button`
 function EndingPage({ pageContent, onReadAgain }) {
   const navigate = useNavigate();
 
+  // Track ending page view
+  useEffect(() => {
+    trackPageView("Ending Page");
+    trackEvent("book_completed");
+  }, []);
+
   const handleReadAgain = () => {
+    trackEvent("read_again_clicked");
     onReadAgain();
     navigate("/");
   };

@@ -30,11 +30,23 @@ export const versionInfo = {
     buildDate: new Date().toDateString(),
     buildTime: new Date().toTimeString(),
     // Use Vite's build info if available (in production), or current info if not (in development)
-    nodeVersion: (typeof window !== 'undefined' && window.__BUILD_INFO__) ? window.__BUILD_INFO__.nodeVersion : 'dev',
-    buildBy: (typeof window !== 'undefined' && window.__BUILD_INFO__) ? window.__BUILD_INFO__.buildBy : 'development',
-    gitCommit: (typeof window !== 'undefined' && window.__BUILD_INFO__) ? window.__BUILD_INFO__.commitHash : 'local',
-    gitBranch: (typeof window !== 'undefined' && window.__BUILD_INFO__) ? window.__BUILD_INFO__.gitBranch : 'local',
-  }
+    nodeVersion:
+      typeof window !== "undefined" && window.__BUILD_INFO__
+        ? window.__BUILD_INFO__.nodeVersion
+        : "dev",
+    buildBy:
+      typeof window !== "undefined" && window.__BUILD_INFO__
+        ? window.__BUILD_INFO__.buildBy
+        : "development",
+    gitCommit:
+      typeof window !== "undefined" && window.__BUILD_INFO__
+        ? window.__BUILD_INFO__.commitHash
+        : "local",
+    gitBranch:
+      typeof window !== "undefined" && window.__BUILD_INFO__
+        ? window.__BUILD_INFO__.gitBranch
+        : "local",
+  },
 };
 
 // Function to get a formatted version string
@@ -63,13 +75,13 @@ export const getVersionHistory = () => {
 export const getFormattedBuildTimestamp = () => {
   const buildDate = new Date(versionInfo.buildTimestamp);
   const options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    timeZoneName: 'short'
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
   };
   return buildDate.toLocaleString(undefined, options);
 };

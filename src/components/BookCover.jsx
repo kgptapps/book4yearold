@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { trackPageView, trackEvent } from "../data/analytics";
 
 const CoverContainer = styled.div`
   text-align: center;
@@ -59,10 +60,16 @@ const StartButton = styled.button`
 function BookCover({ pageContent, onStartReading }) {
   const navigate = useNavigate();
 
+  // Track cover page view
+  useEffect(() => {
+    trackPageView("Book Cover");
+  }, []);
+
   console.log("BookCover rendered with pageContent:", pageContent);
 
   const handleStartReading = () => {
     console.log("Start Reading button clicked");
+    trackEvent("start_reading_clicked");
     onStartReading();
     navigate("/page/1");
   };

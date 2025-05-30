@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { versionInfo, getVersionString, getFormattedBuildTimestamp } from "../data/version";
+import {
+  versionInfo,
+  getVersionString,
+  getFormattedBuildTimestamp,
+} from "../data/version";
 
 const VersionContainer = styled.div`
   position: fixed;
@@ -15,7 +19,7 @@ const VersionContainer = styled.div`
   z-index: 100;
   transition: background-color 0.2s ease;
   border: 1px solid #eee;
-  
+
   &:hover {
     background-color: rgba(255, 255, 255, 1);
   }
@@ -79,7 +83,8 @@ function Version() {
   return (
     <>
       <VersionContainer onClick={() => setShowPopup(true)}>
-        {getVersionString()} (Built: {new Date(versionInfo.buildTimestamp).toLocaleDateString()})
+        {getVersionString()} (Built:{" "}
+        {new Date(versionInfo.buildTimestamp).toLocaleDateString()})
       </VersionContainer>
 
       {showPopup && (
@@ -135,21 +140,36 @@ function Version() {
             </>
           )}
 
-          <div style={{ borderTop: '1px solid #eee', marginTop: '15px', paddingTop: '10px' }}>
-            <p style={{ fontSize: '0.8rem', margin: '3px 0', color: '#457b9d' }}>
+          <div
+            style={{
+              borderTop: "1px solid #eee",
+              marginTop: "15px",
+              paddingTop: "10px",
+            }}
+          >
+            <p
+              style={{ fontSize: "0.8rem", margin: "3px 0", color: "#457b9d" }}
+            >
               <strong>Build Information</strong>
             </p>
-            <p style={{ fontSize: '0.75rem', margin: '2px 0', color: '#666' }}>
+            <p style={{ fontSize: "0.75rem", margin: "2px 0", color: "#666" }}>
               Date: {new Date(versionInfo.buildTimestamp).toLocaleDateString()}
             </p>
-            <p style={{ fontSize: '0.75rem', margin: '2px 0', color: '#666' }}>
+            <p style={{ fontSize: "0.75rem", margin: "2px 0", color: "#666" }}>
               Time: {new Date(versionInfo.buildTimestamp).toLocaleTimeString()}
             </p>
-            {versionInfo.buildEnvironment && versionInfo.buildEnvironment.buildBy && (
-              <p style={{ fontSize: '0.75rem', margin: '2px 0', color: '#666' }}>
-                By: {versionInfo.buildEnvironment.buildBy}
-              </p>
-            )}
+            {versionInfo.buildEnvironment &&
+              versionInfo.buildEnvironment.buildBy && (
+                <p
+                  style={{
+                    fontSize: "0.75rem",
+                    margin: "2px 0",
+                    color: "#666",
+                  }}
+                >
+                  By: {versionInfo.buildEnvironment.buildBy}
+                </p>
+              )}
           </div>
         </VersionPopup>
       )}
