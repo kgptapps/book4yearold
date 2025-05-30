@@ -1,12 +1,76 @@
-# React + Vite
+# Milo the Math Mouse: Interactive Children's Book
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive web book for 4-year-old children that includes math, literacy, puzzles, and critical thinking activities.
 
-Currently, two official plugins are available:
+## 📚 About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This web application is designed as an educational resource for young children, featuring:
 
-## Expanding the ESLint configuration
+- Engaging story about Milo the Math Mouse
+- 12 interactive pages with different activities
+- Multiple-choice questions and text input activities
+- Child-friendly, colorful UI design
+- Fun illustrations and feedback for children
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+- **Educational Content**: Math problems, pattern recognition, shape identification, and literacy exercises
+- **Interactive Elements**: Multiple-choice questions, text inputs, and immediate feedback
+- **Child-Friendly Design**: Large, readable text and intuitive navigation
+- **Responsive Layout**: Works on tablets and desktop screens
+
+## 🚀 Live Demo
+
+Visit the live demo: [Milo the Math Mouse](https://kgptapps.github.io/book4yearold/)
+
+## 🔧 Technology Stack
+
+- React (with React Router for navigation)
+- styled-components for styling
+- Vite for fast development and building
+- GitHub Pages for hosting
+
+## 🧠 Learning Goals
+
+This interactive book helps children develop:
+
+- Basic counting and number recognition
+- Pattern identification
+- Problem-solving skills
+- Reading comprehension
+- Critical thinking
+
+## 🛠️ Development
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/kgptapps/book4yearold.git
+
+# Navigate to the project folder
+cd book4yearold
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+## 🔮 Future Enhancements
+
+- Sound effects for better engagement
+- More animations for interactive elements
+- Progress tracking
+- Additional educational activities
+- Accessibility improvements
+
+## 📄 License
+
+MIT License
