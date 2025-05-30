@@ -11,6 +11,7 @@ import { bookContent } from "./data/bookContent";
 import BookCover from "./components/BookCover";
 import BookPage from "./components/BookPage";
 import EndingPage from "./components/EndingPage";
+import Version from "./components/Version";
 
 // App Container styling
 const AppContainer = styled.div`
@@ -62,6 +63,7 @@ function App() {
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <Version />
       </AppContainer>
     </Router>
   );
