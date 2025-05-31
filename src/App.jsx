@@ -42,16 +42,30 @@ function App() {
         <Routes>
           {/* Home route - Book Selection */}
           <Route path="/" element={<BookSelection />} />
-          
+
           {/* Book routes */}
           <Route path="/book/:bookId" element={<BookContainer />} />
-          <Route path="/book/:bookId/page/:pageNumber" element={<BookContainer />} />
+          <Route
+            path="/book/:bookId/page/:pageNumber"
+            element={<BookContainer />}
+          />
           <Route path="/book/:bookId/ending" element={<BookContainer />} />
-          
+
           {/* Legacy routes for backward compatibility */}
-          <Route path="/page/:pageNumber" element={<Navigate to={params => `/book/milo/page/${params.pageNumber}`} replace />} />
-          <Route path="/ending" element={<Navigate to="/book/milo/ending" replace />} />
-          
+          <Route
+            path="/page/:pageNumber"
+            element={
+              <Navigate
+                to={(params) => `/book/milo/page/${params.pageNumber}`}
+                replace
+              />
+            }
+          />
+          <Route
+            path="/ending"
+            element={<Navigate to="/book/milo/ending" replace />}
+          />
+
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

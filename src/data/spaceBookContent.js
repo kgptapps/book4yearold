@@ -41,7 +41,7 @@ export const spaceBookContent = [
         "Because the Sun moves",
         "Because the Earth spins",
         "Because the Moon blocks the Sun",
-        "Because the stars come out"
+        "Because the stars come out",
       ],
       correctAnswer: "Because the Earth spins",
     },
@@ -81,7 +81,8 @@ export const spaceBookContent = [
     image: "🪐",
     activity: {
       type: "sequence",
-      question: "Can you put these planets in order from closest to the Sun to farthest?",
+      question:
+        "Can you put these planets in order from closest to the Sun to farthest?",
       options: ["Earth", "Mercury", "Jupiter", "Mars"],
       correctSequence: ["Mercury", "Earth", "Mars", "Jupiter"],
     },
@@ -124,8 +125,8 @@ export const spaceBookContent = [
       pairs: [
         { item: "Sun", match: "Gives light" },
         { item: "Moon", match: "Circles Earth" },
-        { item: "Rocket", match: "Takes people to space" }
-      ]
+        { item: "Rocket", match: "Takes people to space" },
+      ],
     },
   },
   {

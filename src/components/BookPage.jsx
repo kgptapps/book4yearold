@@ -141,7 +141,15 @@ const FeedbackMessage = styled.div`
   color: ${(props) => (props.$isCorrect ? "#155724" : "#721c24")};
 `;
 
-function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious, onReturnToLibrary, bookId }) {
+function BookPage({
+  pageContent,
+  pageNumber,
+  totalPages,
+  onNext,
+  onPrevious,
+  onReturnToLibrary,
+  bookId,
+}) {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [attempts, setAttempts] = useState(0);
@@ -200,7 +208,7 @@ function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious, onR
       trackEvent("button_click", {
         button: "back_to_cover",
         from_page: pageNumber,
-        book_id: bookId
+        book_id: bookId,
       });
       navigate(`/book/${bookId}`);
       onPrevious(); // This will set the page state to 0
@@ -209,7 +217,7 @@ function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious, onR
         button: "previous_page",
         from_page: pageNumber,
         to_page: pageNumber - 1,
-        book_id: bookId
+        book_id: bookId,
       });
       navigate(`/book/${bookId}/page/${pageNumber - 1}`);
       onPrevious();
@@ -224,11 +232,11 @@ function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious, onR
       navigate(`/book/${bookId}/ending`);
     }
   };
-  
+
   const handleReturnToLibrary = () => {
-    trackEvent("return_to_library", { 
-      from_book: bookId, 
-      from_page: pageNumber 
+    trackEvent("return_to_library", {
+      from_book: bookId,
+      from_page: pageNumber,
     });
     onReturnToLibrary();
   };
@@ -328,7 +336,9 @@ function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious, onR
       </PageContent>
 
       <NavigationButtons>
-        <LibraryButton onClick={handleReturnToLibrary}>Back to Library</LibraryButton>
+        <LibraryButton onClick={handleReturnToLibrary}>
+          Back to Library
+        </LibraryButton>
         <NavButton onClick={handlePrevious}>
           {pageNumber === 1 ? "Back to Cover" : "Previous Page"}
         </NavButton>

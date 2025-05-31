@@ -103,17 +103,19 @@ function BookSelection() {
     {
       id: "milo",
       title: "The Adventures of Milo the Math Mouse",
-      description: "Join Milo on an adventure filled with math, puzzles, and fun!",
+      description:
+        "Join Milo on an adventure filled with math, puzzles, and fun!",
       emoji: "🐭",
-      path: "/book/milo"
+      path: "/book/milo",
     },
     {
       id: "stella",
       title: "Stella's Space Adventure",
-      description: "Explore the wonders of space with Stella and learn about planets, stars, and astronauts!",
+      description:
+        "Explore the wonders of space with Stella and learn about planets, stars, and astronauts!",
       emoji: "🚀",
-      path: "/book/stella"
-    }
+      path: "/book/stella",
+    },
   ];
 
   const handleBookSelect = (bookId) => {
