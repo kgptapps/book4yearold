@@ -57,25 +57,52 @@ const StartButton = styled.button`
   }
 `;
 
-function BookCover({ pageContent, onStartReading }) {
+const LibraryButton = styled.button`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  background-color: #a8dadc;
+  color: #1d3557;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #76c5d6;
+  }
+`;
+
+function BookCover({ pageContent, onStartReading, onReturnToLibrary, bookId }) {
   const navigate = useNavigate();
 
   // Track cover page view
   useEffect(() => {
-    trackPageView("Book Cover");
-  }, []);
+    trackPageView(`Book Cover: ${bookId}`);
+  }, [bookId]);
 
   console.log("BookCover rendered with pageContent:", pageContent);
 
   const handleStartReading = () => {
     console.log("Start Reading button clicked");
-    trackEvent("start_reading_clicked");
+    trackEvent("start_reading_clicked", { book_id: bookId });
     onStartReading();
-    navigate("/page/1");
+    navigate(`/book/${bookId}/page/1`);
+  };
+
+  // Get book description based on bookId
+  const getBookDescription = () => {
+    if (bookId === "stella") {
+      return "Explore the wonders of space with Stella and learn about planets, stars, and astronauts!";
+    }
+    return "Join Milo on an adventure filled with math, puzzles, and fun!";
   };
 
   return (
     <CoverContainer>
+      <LibraryButton onClick={onReturnToLibrary}>Back to Library</LibraryButton>
       <div>
         <Title>{pageContent.content}</Title>
         <Subtitle>{pageContent.subtitle}</Subtitle>
@@ -84,7 +111,7 @@ function BookCover({ pageContent, onStartReading }) {
       <CoverImage>{pageContent.image}</CoverImage>
 
       <div>
-        <p>Join Milo on an adventure filled with math, puzzles, and fun!</p>
+        <p>{getBookDescription()}</p>
         <StartButton onClick={handleStartReading}>Start Reading</StartButton>
       </div>
     </CoverContainer>

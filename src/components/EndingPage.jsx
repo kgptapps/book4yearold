@@ -1,6 +1,36 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate } from "react-rou  const handleReadAgain = () => {
+    trackEvent("read_again_clicked", { book_id: bookId });
+    onReadAgain();
+    navigate(`/book/${bookId}`);
+  };
+
+  // Get book-specific message based on bookId
+  const getEndingMessage = () => {
+    if (bookId === "stella") {
+      return "Thank you for exploring space with Stella!";
+    }
+    return "Thank you for reading Milo's adventure!";
+  };
+
+  return (
+    <EndingContainer>
+      <div>
+        <EndingTitle>The End</EndingTitle>
+        <p>{pageContent.content}</p>
+      </div>
+
+      <EndingImage>{pageContent.image}</EndingImage>
+
+      <div>
+        <p>{getEndingMessage()}</p>
+        <ButtonContainer>
+          <Button onClick={handleReadAgain}>Read Again</Button>
+          <LibraryButton onClick={onReturnToLibrary}>Back to Library</LibraryButton>
+        </ButtonContainer>
+      </div>
+    </EndingContainer>
+  );led from "styled-components";
 import { trackPageView, trackEvent } from "../data/analytics";
 
 const EndingContainer = styled.div`
@@ -44,6 +74,7 @@ const Button = styled.button`
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s;
+  margin: 0 10px;
 
   &:hover {
     background-color: #d90429;
@@ -51,19 +82,43 @@ const Button = styled.button`
   }
 `;
 
-function EndingPage({ pageContent, onReadAgain }) {
+const LibraryButton = styled(Button)`
+  background-color: #a8dadc;
+  color: #1d3557;
+  
+  &:hover {
+    background-color: #76c5d6;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+`;
+
+function EndingPage({ pageContent, onReadAgain, onReturnToLibrary, bookId }) {
   const navigate = useNavigate();
 
   // Track ending page view
   useEffect(() => {
-    trackPageView("Ending Page");
-    trackEvent("book_completed");
-  }, []);
+    trackPageView(`Ending Page: ${bookId}`);
+    trackEvent("book_completed", { book_id: bookId });
+  }, [bookId]);
 
   const handleReadAgain = () => {
-    trackEvent("read_again_clicked");
+    trackEvent("read_again_clicked", { book_id: bookId });
     onReadAgain();
-    navigate("/");
+    navigate(`/book/${bookId}`);
+  };
+
+  // Get book-specific message based on bookId
+  const getEndingMessage = () => {
+    if (bookId === "stella") {
+      return "Thank you for exploring space with Stella!";
+    }
+    return "Thank you for reading Milo's adventure!";
   };
 
   return (
@@ -76,8 +131,11 @@ function EndingPage({ pageContent, onReadAgain }) {
       <EndingImage>{pageContent.image}</EndingImage>
 
       <div>
-        <p>Thank you for reading Milo's adventure!</p>
-        <Button onClick={handleReadAgain}>Read Again</Button>
+        <p>{getEndingMessage()}</p>
+        <ButtonContainer>
+          <Button onClick={handleReadAgain}>Read Again</Button>
+          <LibraryButton onClick={onReturnToLibrary}>Back to Library</LibraryButton>
+        </ButtonContainer>
       </div>
     </EndingContainer>
   );
