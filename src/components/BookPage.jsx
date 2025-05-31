@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   trackActivityCompletion,
   trackPageInteraction,
+  trackEvent,
 } from "../data/analytics";
 
 const PageContainer = styled.div`
@@ -126,6 +127,24 @@ function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious }) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [attempts, setAttempts] = useState(0);
   const navigate = useNavigate();
+  const params = useParams();
+
+  // Sync page number from URL parameters if needed
+  useEffect(() => {
+    const urlPageNumber = params.pageNumber
+      ? parseInt(params.pageNumber)
+      : null;
+    if (
+      urlPageNumber &&
+      urlPageNumber !== pageNumber &&
+      urlPageNumber > 0 &&
+      urlPageNumber < totalPages - 1
+    ) {
+      console.log(
+        `URL page number (${urlPageNumber}) differs from state (${pageNumber}), syncing...`
+      );
+    }
+  }, [params.pageNumber, pageNumber, totalPages]);
 
   // Track page interactions when component mounts
   useEffect(() => {
@@ -157,11 +176,22 @@ function BookPage({ pageContent, pageNumber, totalPages, onNext, onPrevious }) {
   };
 
   const handlePrevious = () => {
-    if (pageNumber > 1) {
-      onPrevious();
-      navigate(`/page/${pageNumber - 1}`);
-    } else {
+    if (pageNumber <= 1) {
+      // For page 1, navigate to cover (page 0)
+      trackEvent("button_click", {
+        button: "back_to_cover",
+        from_page: pageNumber,
+      });
       navigate("/");
+      onPrevious(); // This will set the page state to 0
+    } else {
+      trackEvent("button_click", {
+        button: "previous_page",
+        from_page: pageNumber,
+        to_page: pageNumber - 1,
+      });
+      navigate(`/page/${pageNumber - 1}`);
+      onPrevious();
     }
   };
 

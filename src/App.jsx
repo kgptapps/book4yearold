@@ -68,7 +68,12 @@ function App() {
   };
 
   const goToPreviousPage = () => {
-    setPage((curr) => Math.max(curr - 1, 0));
+    // If already on page 1, go back to cover (page 0)
+    if (page <= 1) {
+      setPage(0);
+    } else {
+      setPage((curr) => curr - 1);
+    }
   };
 
   const readAgain = () => {
@@ -84,16 +89,17 @@ function App() {
           <Route
             path="/"
             element={
-              page === 0 ? (
-                <BookCover
-                  onStartReading={startReading}
-                  pageContent={bookContent[page]}
-                />
-              ) : page === totalPages - 1 ? (
-                <EndingPage
-                  onReadAgain={readAgain}
-                  pageContent={bookContent[page]}
-                />
+              <BookCover
+                onStartReading={startReading}
+                pageContent={bookContent[0]}
+              />
+            }
+          />
+          <Route
+            path="/page/:pageNumber"
+            element={
+              page === totalPages - 1 ? (
+                <Navigate to="/ending" replace />
               ) : (
                 <BookPage
                   pageContent={bookContent[page]}
@@ -103,6 +109,15 @@ function App() {
                   onPrevious={goToPreviousPage}
                 />
               )
+            }
+          />
+          <Route
+            path="/ending"
+            element={
+              <EndingPage
+                onReadAgain={readAgain}
+                pageContent={bookContent[totalPages - 1]}
+              />
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />
