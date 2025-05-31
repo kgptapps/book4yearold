@@ -170,8 +170,14 @@ function BookPage({
       console.log(
         `URL page number (${urlPageNumber}) differs from state (${pageNumber}), syncing...`
       );
+      // Don't call handlers directly to avoid navigation loops
+      trackEvent("page_synced_from_url", {
+        from_page: pageNumber,
+        to_page: urlPageNumber,
+        book_id: bookId,
+      });
     }
-  }, [params.pageNumber, pageNumber, totalPages]);
+  }, [params.pageNumber, pageNumber, totalPages, bookId]);
 
   // Track page interactions when component mounts
   useEffect(() => {
@@ -210,8 +216,11 @@ function BookPage({
         from_page: pageNumber,
         book_id: bookId,
       });
-      navigate(`/book/${bookId}`);
+      // First update state, then navigate
       onPrevious(); // This will set the page state to 0
+      setTimeout(() => {
+        navigate(`/book/${bookId}`);
+      }, 0);
     } else {
       trackEvent("button_click", {
         button: "previous_page",
@@ -219,17 +228,33 @@ function BookPage({
         to_page: pageNumber - 1,
         book_id: bookId,
       });
-      navigate(`/book/${bookId}/page/${pageNumber - 1}`);
+      // First update state, then navigate
       onPrevious();
+      setTimeout(() => {
+        navigate(`/book/${bookId}/page/${pageNumber - 1}`);
+      }, 0);
     }
   };
 
   const handleNext = () => {
     if (pageNumber < totalPages - 1) {
+      trackEvent("button_click", {
+        button: "next_page",
+        from_page: pageNumber,
+        to_page: pageNumber + 1,
+        book_id: bookId,
+      });
       onNext();
-      navigate(`/book/${bookId}/page/${pageNumber + 1}`);
+      setTimeout(() => {
+        navigate(`/book/${bookId}/page/${pageNumber + 1}`);
+      }, 0);
     } else if (pageNumber === totalPages - 1) {
-      navigate(`/book/${bookId}/ending`);
+      trackEvent("book_ending", {
+        book_id: bookId,
+      });
+      setTimeout(() => {
+        navigate(`/book/${bookId}/ending`);
+      }, 0);
     }
   };
 

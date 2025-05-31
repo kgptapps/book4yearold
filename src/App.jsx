@@ -56,7 +56,10 @@ function App() {
             path="/page/:pageNumber"
             element={
               <Navigate
-                to={(params) => `/book/milo/page/${params.pageNumber}`}
+                to={(location) => {
+                  const pageNum = location.pathname.split("/page/")[1];
+                  return `/book/milo/page/${pageNum}`;
+                }}
                 replace
               />
             }

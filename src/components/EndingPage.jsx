@@ -1,36 +1,6 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-rou  const handleReadAgain = () => {
-    trackEvent("read_again_clicked", { book_id: bookId });
-    onReadAgain();
-    navigate(`/book/${bookId}`);
-  };
-
-  // Get book-specific message based on bookId
-  const getEndingMessage = () => {
-    if (bookId === "stella") {
-      return "Thank you for exploring space with Stella!";
-    }
-    return "Thank you for reading Milo's adventure!";
-  };
-
-  return (
-    <EndingContainer>
-      <div>
-        <EndingTitle>The End</EndingTitle>
-        <p>{pageContent.content}</p>
-      </div>
-
-      <EndingImage>{pageContent.image}</EndingImage>
-
-      <div>
-        <p>{getEndingMessage()}</p>
-        <ButtonContainer>
-          <Button onClick={handleReadAgain}>Read Again</Button>
-          <LibraryButton onClick={onReturnToLibrary}>Back to Library</LibraryButton>
-        </ButtonContainer>
-      </div>
-    </EndingContainer>
-  );led from "styled-components";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { trackPageView, trackEvent } from "../data/analytics";
 
 const EndingContainer = styled.div`
@@ -85,7 +55,7 @@ const Button = styled.button`
 const LibraryButton = styled(Button)`
   background-color: #a8dadc;
   color: #1d3557;
-  
+
   &:hover {
     background-color: #76c5d6;
   }
@@ -134,7 +104,9 @@ function EndingPage({ pageContent, onReadAgain, onReturnToLibrary, bookId }) {
         <p>{getEndingMessage()}</p>
         <ButtonContainer>
           <Button onClick={handleReadAgain}>Read Again</Button>
-          <LibraryButton onClick={onReturnToLibrary}>Back to Library</LibraryButton>
+          <LibraryButton onClick={onReturnToLibrary}>
+            Back to Library
+          </LibraryButton>
         </ButtonContainer>
       </div>
     </EndingContainer>

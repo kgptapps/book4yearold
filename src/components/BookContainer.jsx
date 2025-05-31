@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { bookContent } from "../data/bookContent";
 import { spaceBookContent } from "../data/spaceBookContent";
 import BookCover from "./BookCover";
@@ -13,8 +13,9 @@ import {
 } from "../data/analytics";
 
 function BookContainer() {
-  const { bookId } = useParams();
+  const { bookId, pageNumber } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [page, setPage] = useState(0);
 
   // Select the appropriate book content based on the bookId
@@ -26,6 +27,19 @@ function BookContainer() {
     setPage(0);
     trackEvent("book_loaded", { book_id: bookId });
   }, [bookId]);
+
+  // Sync page with URL parameters
+  useEffect(() => {
+    // Check if we're on a numbered page from URL
+    if (location.pathname.includes("/page/")) {
+      const urlPageNum = parseInt(pageNumber);
+      if (!isNaN(urlPageNum) && urlPageNum > 0 && urlPageNum < totalPages - 1) {
+        setPage(urlPageNum);
+      }
+    } else if (location.pathname.includes("/ending")) {
+      setPage(totalPages - 1);
+    }
+  }, [location.pathname, pageNumber, totalPages]);
 
   // Navigation functions with analytics
   const startReading = () => {

@@ -89,7 +89,10 @@ function BookCover({ pageContent, onStartReading, onReturnToLibrary, bookId }) {
     console.log("Start Reading button clicked");
     trackEvent("start_reading_clicked", { book_id: bookId });
     onStartReading();
-    navigate(`/book/${bookId}/page/1`);
+    // First update state, then navigate
+    setTimeout(() => {
+      navigate(`/book/${bookId}/page/1`);
+    }, 0);
   };
 
   // Get book description based on bookId

@@ -2,17 +2,29 @@
 // It is automatically imported and used to display version information in the UI
 
 export const versionInfo = {
-  version: "1.1.0",
+  version: "1.2.0",
   releaseDate: "May 30, 2025",
   releaseNotes: [
-    "Updated user interface elements for better engagement",
-    "Fixed compatibility issues with modern browsers",
-    "Improved performance and loading times",
-    "Enhanced interactive elements for better learning experience",
-    "GitHub Pages deployment optimized",
-    "Added detailed build information for better tracking",
+    "Fixed navigation issues in multi-book implementation",
+    "Improved URL synchronization for better user experience",
+    "Enhanced state management between book pages",
+    "Fixed book selection and navigation tracking",
+    "Optimized page transitions for smoother reading experience",
+    "Improved backward compatibility with legacy routes",
   ],
   previousVersions: [
+    {
+      version: "1.1.0",
+      releaseDate: "May 28, 2025",
+      releaseNotes: [
+        "Updated user interface elements for better engagement",
+        "Fixed compatibility issues with modern browsers",
+        "Improved performance and loading times",
+        "Enhanced interactive elements for better learning experience",
+        "GitHub Pages deployment optimized",
+        "Added detailed build information for better tracking",
+      ],
+    },
     {
       version: "1.0.0",
       releaseDate: "May 30, 2024",
